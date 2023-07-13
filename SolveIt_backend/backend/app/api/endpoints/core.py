@@ -1,53 +1,49 @@
+# backend/api/endpoints/core.py
+
 from typing import List
 from fastapi import APIRouter, HTTPException
-from app.models.core import Book
-from app.schemas.core import BookCreateSchema, BookUpdateSchema, BookSchema
+from app.models.core import Challenge
+from app.schemas.core import ChallengeCreateSchema, ChallengeUpdateSchema, ChallengeSchema
 from app.api.deps import CurrentSession
 
 router = APIRouter()
-
 
 @router.get("/ping")
 async def ping():
     return {"status": "ok"}
 
-
-@router.post("/books", response_model=BookSchema)
-async def create_book(
+@router.post("/challenges", response_model=ChallengeSchema)
+async def create_challenge(
     session: CurrentSession,
-    book: BookCreateSchema,
+    challenge: ChallengeCreateSchema,
 ):
-    new_book = await Book.create(session, data=book.dict())
-    return new_book
+    new_challenge = await Challenge.create(session, data=challenge.dict())
+    return new_challenge
 
+@router.get("/challenges", response_model=List[ChallengeSchema])
+async def read_challenges(session: CurrentSession):
+    challenges = await Challenge.get_all(session)
+    return challenges
 
-@router.get("/books", response_model=List[BookSchema])
-async def read_books(session: CurrentSession):
-    books = await Book.get_all(session)
-    return books
+@router.get("/challenges/{challenge_id}", response_model=ChallengeSchema)
+async def read_challenge(session: CurrentSession, challenge_id: int):
+    challenge = await Challenge.get(session, challenge_id)
+    if not challenge:
+        raise HTTPException(status_code=404, detail="Challenge not found")
+    return challenge
 
-
-@router.get("/books/{book_id}", response_model=BookSchema)
-async def read_book(session: CurrentSession, book_id: int):
-    book = await Book.get(session, book_id)
-    if not book:
-        raise HTTPException(status_code=404, detail="Book not found")
-    return book
-
-
-@router.put("/books/{book_id}", response_model=BookSchema)
-async def update_book(session: CurrentSession, book_id: int, book: BookUpdateSchema):
-    updated_book = await Book.update(
-        session, book_id, data=book.dict(exclude_unset=True)
+@router.put("/challenges/{challenge_id}", response_model=ChallengeSchema)
+async def update_challenge(session: CurrentSession, challenge_id: int, challenge: ChallengeUpdateSchema):
+    updated_challenge = await Challenge.update(
+        session, challenge_id, data=challenge.dict(exclude_unset=True)
     )
-    if not updated_book:
-        raise HTTPException(status_code=404, detail="Book not found")
-    return updated_book
+    if not updated_challenge:
+        raise HTTPException(status_code=404, detail="Challenge not found")
+    return updated_challenge
 
-
-@router.delete("/books/{book_id}", response_model=BookSchema)
-async def delete_book(session: CurrentSession, book_id: int):
-    deleted_book = await Book.delete(session, book_id)
-    if not deleted_book:
-        raise HTTPException(status_code=404, detail="Book not found")
-    return deleted_book
+@router.delete("/challenges/{challenge_id}", response_model=ChallengeSchema)
+async def delete_challenge(session: CurrentSession, challenge_id: int):
+    deleted_challenge = await Challenge.delete(session, challenge_id)
+    if not deleted_challenge:
+        raise HTTPException(status_code=404, detail="Challenge not found")
+    return deleted_challenge
