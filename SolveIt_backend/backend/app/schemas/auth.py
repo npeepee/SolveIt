@@ -1,6 +1,8 @@
 from typing import Optional
 from pydantic import constr
 from app.schemas.base import CustomBaseModel as BaseModel
+from typing import Optional
+from pydantic import BaseModel, EmailStr
 
 ValidPassword = constr(
     regex="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&^])[^\s]{8,20}$"
@@ -33,3 +35,14 @@ class CurrentUserSchema(BaseModel):
 class AuthSchema(BaseModel):
     username: ValidUsername  # type: ignore
     password: ValidPassword  # type: ignore
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+    refresh_token: str
+    expires_in: int
+
+
+class TokenData(BaseModel):
+    username: Optional[str] = None
