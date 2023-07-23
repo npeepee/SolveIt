@@ -1,33 +1,75 @@
-# backend/app/schemas/core.py
-
-from typing import List, Optional
 from pydantic import BaseModel
+from typing import List, Optional
 
-class ChallengeBase(BaseModel):
-    title: str
-    description: str
-    category: str
-    points: int
-
-class ChallengeCreate(ChallengeBase):
-    flag: str  # This will be hashed in the backend
-
-class Challenge(ChallengeBase):
-    id: int
-
+# Define the common base schema
+class CoreModel(BaseModel):
     class Config:
         orm_mode = True
 
-class UserBase(BaseModel):
+
+# User Schema
+class UserBase(CoreModel):
     username: str
 
+
 class UserCreate(UserBase):
-    password: str
+    hashed_password: str
+
 
 class User(UserBase):
     id: int
     is_active: bool
-    challenges: List[Challenge] = []
+    created_challenges: List["Challenge"]
 
-    class Config:
-        orm_mode = True
+
+# Challenge Schema
+class ChallengeBase(CoreModel):
+    title: str
+    description: str
+    category: str
+    points: int
+    flag_hash: str
+
+
+class ChallengeCreate(ChallengeBase):
+    user_id: int
+
+
+class Challenge(ChallengeBase):
+    id: int
+    author: User
+    attempts: List["Attempt"]
+
+
+# Category Schema
+class CategoryBase(CoreModel):
+    name: str
+    description: str
+
+
+class CategoryCreate(CategoryBase):
+    pass
+
+
+class Category(CategoryBase):
+    id: int
+    challenges: List[Challenge]
+
+
+# Attempt Schema
+class AttemptBase(CoreModel):
+    user_id: int
+    challenge_id: int
+    submitted_flag: str
+    is_successful: bool
+    timestamp: datetime
+
+
+class AttemptCreate(AttemptBase):
+    pass
+
+
+class Attempt(AttemptBase):
+    id: int
+    user: User
+    challenge: Challenge
