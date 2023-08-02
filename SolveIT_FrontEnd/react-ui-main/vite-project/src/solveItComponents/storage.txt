@@ -1,0 +1,8 @@
+        <nav>
+            <ul>
+                <span>My App</span>
+                {navLinks.map(nav => {
+                    return <li key={nav.id}><NavLink to={nav.href}>{nav.title}</NavLink></li>
+                })}
+            </ul>
+        </nav>

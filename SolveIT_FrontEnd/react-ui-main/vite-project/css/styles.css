@@ -1,0 +1,32 @@
+﻿.navbar-brand {
+    color: #fff;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    vertical-align: top;
+}
+
+tr {
+    border: 1px solid;
+    border-color: #dee2e6;
+}
+
+hr {
+    margin: 3rem;
+}
+
+tr:nth-child(even) {
+    background-color: rgb(240, 240, 240);
+}
+
+.top-teams {
+    margin: 2rem;
+    text-align: center;
+}
+
+ul {
+    margin: 2rem;
+}
