@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
 export default function Dashboard() {
-  const [data, setData] = useState({})
+  const [data, setData] = useState({});
 
   function handleClick() {
     //GET
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
-      .then(response => response.json())
-      .then(json => {
-        console.log(json)
-        setData(json)
-      })
+    fetch("https://jsonplaceholder.typicode.com/todos/1")
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        setData(json);
+      });
   }
 
   return (
@@ -18,5 +18,5 @@ export default function Dashboard() {
       <button onClick={handleClick}>Display Users</button>
       <p>{data.title}</p>
     </>
-  )
+  );
 }

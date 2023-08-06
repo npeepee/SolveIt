@@ -1,21 +1,15 @@
 export const navLinks2 = [
-    {
-        id: 5,
-        title: 'Admin',
-        href: "/admin"
-    },
-    {
-        id: 6,
-        title: 'Profile',
-        href: "/profile"
-    },
-    {
-        id: 7,
-        title: 'Login',
-        href: "/login"
-    }
-]
-
+  {
+    id: 5,
+    title: "Admin",
+    href: "/admin",
+  },
+  {
+    id: 6,
+    title: "Profile",
+    href: "/profile",
+  },
+];
 
 //1. Make sure that your navlinks are updated
 

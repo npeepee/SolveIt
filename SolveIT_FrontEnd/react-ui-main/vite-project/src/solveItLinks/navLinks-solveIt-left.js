@@ -1,26 +1,25 @@
 export const navLinks1 = [
-    {
-        id: 1,
-        title: 'Users',
-        href: "/users"
-    },
-    {
-        id: 2,
-        title: 'Teams',
-        href: "/teams"
-    },
-    {
-        id: 3,
-        title: 'Scoreboard',
-        href: "/scoreboard"
-    },
-    {
-        id: 4,
-        title: 'Challenges',
-        href: "/challenges"
-    },
-]
-
+  {
+    id: 1,
+    title: "Users",
+    href: "/users",
+  },
+  {
+    id: 2,
+    title: "Teams",
+    href: "/teams",
+  },
+  {
+    id: 3,
+    title: "Scoreboard",
+    href: "/scoreboard",
+  },
+  {
+    id: 4,
+    title: "Challenges",
+    href: "/challenges",
+  },
+];
 
 //1. Make sure that your navlinks are updated
 
