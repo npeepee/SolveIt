@@ -1,79 +1,133 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { useContext } from "react";
+import { navLinksGuest, navLinksUser, navLinksAdmin } from "../solveItLinks/navLinks-solveIt-right";
+import { AuthContext } from "../solveItComponents/AuthProvider";
 
 export default function Challenges() {
-    //import the context to show that user is logged in
-    //if not logged in, either navigate them to another page, or show an element that says not authorised
+    const [challengeInput1, setChallengeInput1] = useState('');
+    const [challengeInput2, setChallengeInput2] = useState('');
 
-    //if logged in, then you render the elements below
-    //let currentTime = new Date()
-
-    //GET fetch function or axios to the backend endpoint
-    //backend endpoint should return a response status, as well as the result is successful
-    //JSON
-    //JSON.parse --> convert the JSOn string into a regular JS object
-    //with the result, you output the values into your JSX
-
-
-    //Reigster page
-    //input min length of 8 characters
-    //create a state that checks your input value
-    //create an error state
-    //input --> onChange call function once the event fires
-    //inside the function, your logic should check the value.length
-    //if value.length is < 8, set error state to display a error message
-    const [flag, setFlag] = useState('')
-
-    function handleChange(event) {
-        setFlag(event.target.value)
+    let userLinks = [];
+    const { user, logout } = useContext(AuthContext);
+    const handleLogout = () => {
+    logout();
+    };
+    if (user) {
+      if (user.role == 2) {
+        userLinks = navLinksAdmin;
+      }
+      else if (user.role == 1) {
+        userLinks = navLinksUser;
+      }
+      else {
+        userLinks = navLinksGuest; /*(i need a new navlink)*/
+      }
     }
 
-    function submitChallenge() {
-        if (flag === "statue") {
-            alert("Success")
+    function handleChange1(event) {
+        setChallengeInput1(event.target.value);
+    }
+
+    function handleChange2(event) {
+        setChallengeInput2(event.target.value);
+    }
+
+    function SubmitChallenge1() {
+        if (challengeInput1 === "7ca08393fa89108a58f6e477dc1fdc30") {
+            alert("You got it for Challenge 1!");
         } else {
-            alert("try again")
+            alert("Try again for Challenge 1");
         }
-        
+    }
+
+    function SubmitChallenge2() {
+        if (challengeInput2 === "e4b7a2a3c5a255a2f2bd4b1227874086") {
+            alert("You got it for Challenge 2!");
+        } else {
+            alert("Try again for Challenge 2");
+        }
     }
 
     return (
         <>
-            <link rel="stylesheet" href="../css/styles.css" />
-            <link rel="stylesheet" href="../css/Bootstrap.css" />
-            <div class="row">
-                <div class="col-xl-12  text-center">
-                    <h1 class="display-1 bold color_white content__title">Challenges<span class="vim-caret">&nbsp;</span></h1>
-                    <p class="text-grey text-spacey hackerFont lead mb-5">
-                        Want a go at what we offer? Try any of the two challenges here!
-                    </p>
+        <link rel="stylesheet" href="../css/styles.css" />
+        <link rel="stylesheet" href="../css/suka.css" />
+        {user ? (
+            <>
+                <div className="row">
+                    <div className="col-xl-12 text-center">
+                        <h1 className="display-1 bold color_white content__title">Challenges<span className="vim-caret">&nbsp;</span></h1>
+                        <p className="text-grey text-spacey hackerFont lead mb-5">
+                            Want a go at what we offer? Try any of the challenges here!
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <br />
-            <div class="col-md-12">
-                <h4>Try these out!</h4>
-            </div>
+                <br />
+                <div className="col-md-12">
+                    <h4>Try these out!</h4>
+                </div>
 
-            <div class="col-md-4 mb-3">
-                <div class="card category_web">
-                    <div class="card-header solved" data-target="#problem_id_1" data-toggle="collapse" aria-expanded="true" aria-controls="problem_id_1">
-                        Salad Bowl
-                    </div>
-                    <div id="problem_id_1" class="card-body collapse show">
-                        <blockquote class="card-blockquote">
-                            <p className={flag ? 'text-success' : 'text-gray'}>
-                                Challenge 1: Mom said it was Xfqfi Ynrj! (Decrypt what "Xfqfi Ynrj" is and input it in MD5!) (7ca08393fa89108a58f6e477dc1fdc30)
-                            </p>
-                            <div class="row submit-row">
-                                <div class="col-12 col-sm-4 mt-3 mt-sm-0 key-submit">
-                                    <button id="challenge-submit" class="challenge-submit btn btn-outline-secondary w-100 h-100" type="submit" onClick={submitChallenge}>
-                                        Submit
-                                    </button>
+                {/* First Challenge */}
+                <div className="col-md-4 mb-3 column-chal">
+                    <div className="card category_web">
+                        <div className="card-header solved" data-target="#problem_id_1" data-toggle="collapse" aria-expanded="true" aria-controls="problem_id_1">
+                            Salad Bowl
+                        </div>
+                        <div id="problem_id_1" className="card-body collapse show">
+                            <blockquote className="card-blockquote">
+                                <p>
+                                    Challenge 1: Mom said it was Xfqfi Ynrj! (Decrypt what "Xfqfi Ynrj" is and input it in MD5!) (7ca08393fa89108a58f6e477dc1fdc30)
+                                </p>
+                                <div className="row justify-content-center">
+                                    <div className="col-12 col-sm-6 mt-2">
+                                        <input type="text" value={challengeInput1} onChange={handleChange1} placeholder="Enter answer for Challenge 1" className="w-100" />
+                                    </div>
                                 </div>
-                            </div>
-                        </blockquote>
+                                <div className="row justify-content-center">
+                                    <div className="col-12 col-sm-4 mt-3 key-submit">
+                                        <button className="challenge-submit btn btn-outline-secondary w-100 h-100" onClick={SubmitChallenge1}>
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                {/* Second Challenge */}
+                <div className="col-md-4 mb-3 column-chal">
+                    <div className="card category_web">
+                        <div className="card-header solved" data-target="#problem_id_2" data-toggle="collapse" aria-expanded="true" aria-controls="problem_id_2">
+                            Binary Genius
+                        </div>
+                        <div id="problem_id_2" className="card-body collapse show">
+                            <blockquote className="card-blockquote">
+                                <p>
+                                    Challenge 2: Convert the binary '01101000 01100101 01101100 01101100 01101111' to its ASCII representation and input its MD5 hash! (e4b7a2a3c5a255a2f2bd4b1227874086)
+                                </p>
+                                <div className="row justify-content-center">
+                                    <div className="col-12 col-sm-6 mt-2">
+                                        <input type="text" value={challengeInput2} onChange={handleChange2} placeholder="Enter answer for Challenge 2" className="w-100" />
+                                    </div>
+                                </div>
+                                <div className="row justify-content-center">
+                                    <div className="col-12 col-sm-4 mt-3 key-submit">
+                                        <button className="challenge-submit btn btn-outline-secondary w-100 h-100" onClick={SubmitChallenge2}>
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </>
+        ) : (
+            <>
+              <li>smt</li>
+            </>
+        )}
         </>
     );
 }
