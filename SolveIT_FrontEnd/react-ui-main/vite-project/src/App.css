@@ -12,3 +12,7 @@ nav span {
   margin-right: 3rem;
   list-style-type: none;
 }
+
+svg {
+  color: #33FFBD;
+}

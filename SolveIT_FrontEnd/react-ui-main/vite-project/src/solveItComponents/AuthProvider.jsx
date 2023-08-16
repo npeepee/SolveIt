@@ -54,15 +54,16 @@ export const AuthProvider = ({ children }) => {
 
   const registerUserAccount = useCallback(
     async ({ username, password, repeat_password }) => {
-      const response = await registerAccount({
+      await registerAccount({
         username,
         password,
         repeat_password,
       });
-      const user = response.data;
-      setUser(user.data);
-      localStorage.setItem("user", JSON.stringify(user.data));
-      localStorage.setItem("access_token", user.access_token);
+      const response = await LogIn({ username, password });
+      const { data, access_token } = response.data;
+      setUser(data);
+      localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem("access_token", access_token);
       return response.status;
     },
     [],

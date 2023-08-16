@@ -1,23 +1,13 @@
 export const navLinks1 = [
   {
     id: 1,
-    title: "Users",
-    href: "/users",
+    title: "Challenges",
+    href: "/challenges",
   },
   {
     id: 2,
-    title: "Teams",
-    href: "/teams",
-  },
-  {
-    id: 3,
-    title: "Scoreboard",
-    href: "/scoreboard",
-  },
-  {
-    id: 4,
-    title: "Challenges",
-    href: "/challenges",
+    title: "Pricing",
+    href: "/pricing",
   },
 ];
 

@@ -1,8 +1,8 @@
 import React from "react";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { navLinks1 } from "../solveItLinks/navLinks-solveIt-left";
-import { navLinks2 } from "../solveItLinks/navLinks-solveIt-right";
+import { navLinksGuest, navLinksUser, navLinksAdmin } from "../solveItLinks/navLinks-solveIt-right";
 import { AuthContext } from "./AuthProvider";
 
 export default function NavBar() {
@@ -10,6 +10,21 @@ export default function NavBar() {
   const handleLogout = () => {
     logout();
   };
+
+  let userLinks = [];
+
+  if (user) {
+    if (user.role == 2) {
+      userLinks = navLinksAdmin;
+    }
+    else if (user.role == 1) {
+      userLinks = navLinksUser;
+    }
+    else {
+      userLinks = navLinksGuest; /*(i need a new navlink)*/
+    }
+  }
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
@@ -46,46 +61,46 @@ export default function NavBar() {
             </ul>
             <ul className="navbar-nav ml-auto">
               {user ? (
-                <>
-                  {navLinks2.map((nav) => {
-                    return (
-                      <li key={nav.id} className="nav-item">
-                        <NavLink
-                          to={nav.href}
-                          className="text-secondary text-decoration-none"
-                        >
-                          {nav.title}
-                        </NavLink>
-                      </li>
-                    );
-                  })}
-                  <li className="nav-item">
-                    <i
-                      onClick={handleLogout}
-                      className="fas fa-sign-out-alt text-secondary"
-                      style={{ cursor: "pointer" }}
-                    ></i>
-                  </li>
-                </>
+                  <>
+                    {userLinks.map((nav) => {
+                      return (
+                          <li key={nav.id} className="nav-item">
+                            <NavLink
+                                to={nav.href}
+                                className="text-secondary text-decoration-none"
+                            >
+                              {nav.title}
+                            </NavLink>
+                          </li>
+                      );
+                    })}
+                    <li className="nav-item">
+                      <i
+                          onClick={handleLogout}
+                          className="fas fa-sign-out-alt text-secondary"
+                          style={{ cursor: "pointer" }}
+                      ></i>
+                    </li>
+                  </>
               ) : (
-                <>
-                  <li className="nav-item">
-                    <NavLink
-                      to="/register"
-                      className="text-secondary text-decoration-none"
-                    >
-                      Register
-                    </NavLink>
-                  </li>
-                  <li className="nav-item">
-                    <NavLink
-                      to="/login"
-                      className="text-secondary text-decoration-none"
-                    >
-                      Login
-                    </NavLink>
-                  </li>
-                </>
+                  <>
+                    <li className="nav-item">
+                      <NavLink
+                          to="/register"
+                          className="text-secondary text-decoration-none"
+                      >
+                        Register
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink
+                          to="/login"
+                          className="text-secondary text-decoration-none"
+                      >
+                        Login
+                      </NavLink>
+                    </li>
+                  </>
               )}
             </ul>
           </div>

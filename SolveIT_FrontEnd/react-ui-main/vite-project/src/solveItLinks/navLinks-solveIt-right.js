@@ -1,4 +1,24 @@
-export const navLinks2 = [
+/*export const Guest{
+  need ask hima help check links idgi
+}*/
+
+export const navLinksUser = [
+  {
+    id: 6,
+    title: "Profile",
+    href: "/profile",
+  },
+];
+
+export const navLinksGuest = [
+  {
+    id: 1,
+    title: "Guest",
+    href: "/guest",
+  },
+];
+
+export const navLinksAdmin = [
   {
     id: 5,
     title: "Admin",
@@ -10,6 +30,7 @@ export const navLinks2 = [
     href: "/profile",
   },
 ];
+
 
 //1. Make sure that your navlinks are updated
 
