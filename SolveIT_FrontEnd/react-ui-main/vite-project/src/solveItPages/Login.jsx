@@ -18,7 +18,7 @@ export default function Login() {
 
   return (
     <>
-      <link rel="stylesheet" href="../css/Bootstrap.css" />
+      <link rel="stylesheet" href="../css/suka.css" />
       <body>
         <div className="jumbotron">
           <div className="container">

@@ -7,23 +7,29 @@ import { AuthContext } from "./AuthProvider";
 
 export default function NavBar() {
   const { user, logout } = useContext(AuthContext);
+  
   const handleLogout = () => {
     logout();
   };
 
   let userLinks = [];
 
-  if (user) {
-    if (user.role == 2) {
-      userLinks = navLinksAdmin;
-    }
-    else if (user.role == 1) {
-      userLinks = navLinksUser;
-    }
-    else {
-      userLinks = navLinksGuest; /*(i need a new navlink)*/
-    }
+  function Check(user) {
+    {[user.user]}
+      if (user.role == 2) {
+        userLinks = navLinksAdmin;
+      }
+      else if (user.role == 1) {
+        userLinks = navLinksUser;
+      }
+      else {
+        userLinks = navLinksGuest;
+      }
+    
   }
+    
+    
+
 
   return (
     <>
@@ -32,22 +38,23 @@ export default function NavBar() {
           <NavLink to="/" className="navbar-brand">
             SolveIt
           </NavLink>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navmenu"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div
-            className="collapse navbar-collapse"
-            id="navmenu"
-            style={{ justifyContent: "space-around" }}
-          >
-            <ul className="navbar-nav">
-              {navLinks1.map((nav) => {
-                return (
+          <ul className="navbar-nav ml-auto">
+            {user ? (
+              <>
+                <ul className="navbar-nav mr-auto">
+                  {navLinks1.map((nav) => (
+                    <li key={nav.id} className="nav-item">
+                      <NavLink
+                        to={nav.href}
+                        className="text-secondary text-decoration-none"
+                      >
+                        {nav.title}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+                {Check(user)}
+                {userLinks.map((nav) => (
                   <li key={nav.id} className="nav-item">
                     <NavLink
                       to={nav.href}
@@ -56,63 +63,49 @@ export default function NavBar() {
                       {nav.title}
                     </NavLink>
                   </li>
-                );
-              })}
-            </ul>
-            <ul className="navbar-nav ml-auto">
-              {user ? (
-                  <>
-                    {userLinks.map((nav) => {
-                      return (
-                          <li key={nav.id} className="nav-item">
-                            <NavLink
-                                to={nav.href}
-                                className="text-secondary text-decoration-none"
-                            >
-                              {nav.title}
-                            </NavLink>
-                          </li>
-                      );
-                    })}
-                    <li className="nav-item">
-                      <i
-                          onClick={handleLogout}
-                          className="fas fa-sign-out-alt text-secondary"
-                          style={{ cursor: "pointer" }}
-                      ></i>
-                    </li>
-                  </>
-              ) : (
-                  <>
-                    <li className="nav-item">
-                      <NavLink
-                          to="/register"
-                          className="text-secondary text-decoration-none"
-                      >
-                        Register
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink
-                          to="/login"
-                          className="text-secondary text-decoration-none"
-                      >
-                        Login
-                      </NavLink>
-                    </li>
-                  </>
-              )}
-            </ul>
-          </div>
+                ))}
+                <li className="nav-item">
+                  <i
+                    onClick={handleLogout}
+                    className="fas fa-sign-out-alt text-secondary"
+                    style={{ cursor: "pointer" }}
+                  ></i>
+                </li>
+              </>
+            ) : (
+              <>
+                <ul className="navbar-nav ms-auto">
+                  <li className="nav-item">
+                    <NavLink
+                      to="/pricing"
+                      className="text-secondary text-decoration-none"
+                    >
+                      Pricing
+                    </NavLink>
+                  </li>
+                </ul>
+                <li className="nav-item">
+                  <NavLink
+                    to="/register"
+                    className="text-secondary text-decoration-none"
+                  >
+                    Register
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    to="/login"
+                    className="text-secondary text-decoration-none"
+                  >
+                    Login
+                  </NavLink>
+                </li>
+              </>
+            )}
+          </ul>
         </div>
       </nav>
       <Outlet />
     </>
   );
 }
-
-//1. check if user acct is alr in database (POST)
-//2. once the frontend receives success msg, then youchange the login state to true
-//3. set value like {"user": "name"} inside localstorage or cookie ***assumming your backend has protected resource
-//4. after that your state will always be "logged in"
-//5. if press logout, then change login state back to false

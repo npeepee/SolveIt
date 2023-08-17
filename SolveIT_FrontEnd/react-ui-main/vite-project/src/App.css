@@ -16,3 +16,8 @@ nav span {
 svg {
   color: #33FFBD;
 }
+
+.extended-padding {
+  padding-left: 2rem;   /* adjust the value as needed */
+  padding-right: 2rem;  /* adjust the value as needed */
+}

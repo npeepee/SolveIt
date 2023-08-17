@@ -5,7 +5,7 @@ export default function Challenges() {
     return (
         <div>
             <link rel="stylesheet" href="../css/styles.css" />
-            <link rel="stylesheet" href="../css/Bootstrap.css" />
+            <link rel="stylesheet" href="../css/suka.css" />
             <div className="card-body__upper d-flex flex-column">
                 <h5 className="color-white font-size18 line-height-22 font-weight600 letter-spacing-2">
                     Free Bundle1

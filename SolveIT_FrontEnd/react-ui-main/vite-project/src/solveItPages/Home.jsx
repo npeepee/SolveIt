@@ -5,7 +5,7 @@ export default function Dashboard() {
   return (
       <>
         <link rel="stylesheet" href="../css/styles.css" />
-        <link rel="stylesheet" href="../css/Bootstrap.css" />
+        <link rel="stylesheet" href="../css/suka.css" />
         <div className="row pb-4 justify-content-center">
           <div className="col-12">
             <h1 className="font-weight700 color-white m-auto font-size60 line-height-1-15">
