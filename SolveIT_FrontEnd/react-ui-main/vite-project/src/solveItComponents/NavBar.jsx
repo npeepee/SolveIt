@@ -15,7 +15,7 @@ export default function NavBar() {
   let userLinks = [];
 
   function Check(user) {
-    {[user.user]}
+    {[user.user</>]}
       if (user.role == 2) {
         userLinks = navLinksAdmin;
       }
