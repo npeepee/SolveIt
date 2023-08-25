@@ -15,6 +15,8 @@ export default function Dashboard() {
 
   return (
     <>
+      <link rel="stylesheet" href="../css/styles.css" />
+      <link rel="stylesheet" href="../css/suka.css" />
       <button onClick={handleClick}>Display Users</button>
       <p>{data.title}</p>
     </>

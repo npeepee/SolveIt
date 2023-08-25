@@ -14,7 +14,8 @@ import Admin from "./solveItPages/Admin";
 import Challenges from "./solveItPages/Challenges";
 import Register from "./solveItPages/Register";
 import { AuthProvider } from "./solveItComponents/AuthProvider";
-import Pricing from "./solveItPages/Pricing"
+import Pricing from "./solveItPages/Pricing";
+import Scoreboard from "./solveItPages/Scoreboard";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
       <Route path="/admin" element={<Admin />} />
       <Route path="*" element={<ErrorPage />} />
       <Route path="/pricing" element={<Pricing />} />
+      <Route path="/scoreboard" element={<Scoreboard />} />
 
     </Route>,
   ),
@@ -37,6 +39,7 @@ function App() {
     <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>
+
   );
 }
 

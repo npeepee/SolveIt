@@ -73,7 +73,7 @@ export default function Login() {
                       {navLinks3.map((nav) => {
                         return (
                           <a key={nav.id}>
-                            <NavLink to={nav.href}>{nav.title}</NavLink>
+                            <NavLink to="/register">Register</NavLink>
                           </a>
                         );
                       })}

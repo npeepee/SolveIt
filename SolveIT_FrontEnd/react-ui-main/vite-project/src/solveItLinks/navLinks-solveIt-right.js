@@ -4,7 +4,11 @@
 
 export const navLinksUser = [
   {
-    id: 6,
+    id: 4,
+    title: "User",
+  },
+  {
+    id: 7,
     title: "Profile",
     href: "/profile",
   },
@@ -26,6 +30,11 @@ export const navLinksAdmin = [
   },
   {
     id: 6,
+    title: "Dashboard",
+    href: "/dashboard",
+  },
+  {
+    id: 7,
     title: "Profile",
     href: "/profile",
   },

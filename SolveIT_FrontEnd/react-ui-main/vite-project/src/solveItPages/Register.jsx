@@ -9,6 +9,8 @@ export default function Register() {
   const [error, setError] = useState("");
   const { registerUserAccount } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [repeatPasswordError, setRepeatPasswordError] = useState("");
+
 
   const passwordIsValid = {
     length: password.length >= 8,
@@ -17,6 +19,8 @@ export default function Register() {
     number: /\d/.test(password),
     specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
   };
+
+  
 
   const validCriteriaCount = Object.values(passwordIsValid).filter(Boolean).length;
 
@@ -57,6 +61,13 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (password !== repeat_password) {
+      setRepeatPasswordError("Passwords do not match.");
+      return;
+    } else {
+      setRepeatPasswordError(""); // Reset the error when passwords do match
+    }
+
     if (validCriteriaCount < 5) {
       setError("You need a Very Strong password to register.");
       return;
@@ -64,7 +75,8 @@ export default function Register() {
 
     await registerUserAccount({ username, password, repeat_password });
     navigate("/challenges");
-  };
+};
+
 
   return (
     <>
@@ -115,18 +127,20 @@ export default function Register() {
 
               {/* Repeat Password Input */}
               <div className="mb-3">
-                <b><label className="form-label" htmlFor="password">Repeat Password</label></b>
-                <input
-                  className="form-control"
-                  id="repeat_password"
-                  name="repeat_password"
-                  required
-                  type="password"
-                  value={repeat_password}
-                  onChange={(e) => setRepeatPassword(e.target.value)}
-                />
-                <small className="form-text text-muted">Repeat your password</small>
+                  <b><label className="form-label" htmlFor="password">Repeat Password</label></b>
+                  <input
+                    className="form-control"
+                    id="repeat_password"
+                    name="repeat_password"
+                    required
+                    type="password"
+                    value={repeat_password}
+                    onChange={(e) => setRepeatPassword(e.target.value)}
+                  />
+                  <small className="form-text text-muted">Repeat your password</small>
+                  {repeatPasswordError && <div className="text-danger">{repeatPasswordError}</div>}
               </div>
+
 
               <input
                 id="nonce"

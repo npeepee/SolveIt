@@ -21,3 +21,4 @@ export async function registerAccount({ username, password, repeat_password }) {
     repeat_password: repeat_password,
   });
 }
+

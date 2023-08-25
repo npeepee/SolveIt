@@ -5,6 +5,8 @@ import { navLinks1 } from "../solveItLinks/navLinks-solveIt-left";
 import { navLinksGuest, navLinksUser, navLinksAdmin } from "../solveItLinks/navLinks-solveIt-right";
 import { AuthContext } from "./AuthProvider";
 
+
+
 export default function NavBar() {
   const { user, logout } = useContext(AuthContext);
   
@@ -12,22 +14,19 @@ export default function NavBar() {
     logout();
   };
 
-  let userLinks = [];
+  var userLinks = '';
 
-  function Check(user) {
-    {[user.user</>]}
-      if (user.role == 2) {
-        userLinks = navLinksAdmin;
-      }
-      else if (user.role == 1) {
-        userLinks = navLinksUser;
-      }
-      else {
-        userLinks = navLinksGuest;
-      }
-    
+  function Check() {
+    if (user.role == 2) {
+      userLinks = navLinksAdmin;
+    }
+    else if (user.role == 1) {
+      userLinks = navLinksUser;
+    }
+    else {
+      userLinks = navLinksGuest;
+    }
   }
-    
     
 
 
@@ -53,7 +52,7 @@ export default function NavBar() {
                     </li>
                   ))}
                 </ul>
-                {Check(user)}
+                {Check(user.role)}
                 {userLinks.map((nav) => (
                   <li key={nav.id} className="nav-item">
                     <NavLink
@@ -83,7 +82,15 @@ export default function NavBar() {
                       Pricing
                     </NavLink>
                   </li>
-                </ul>
+                </ul> 
+                <li className="nav-item">
+                  <NavLink
+                    
+                    className="text-secondary text-decoration-none"
+                  >
+                    Guest
+                  </NavLink>
+                </li>
                 <li className="nav-item">
                   <NavLink
                     to="/register"
